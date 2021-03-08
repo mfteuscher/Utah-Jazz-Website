@@ -40,9 +40,19 @@ var Forrestbtn = document.getElementById("Forrest");
 var Azubuikemodal = document.getElementById("AzubuikeInfo");
 var Azubuikebtn = document.getElementById("Azubuike");
 
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
+  
+
 // Bojan Bogdanovic
 Bogdanovicbtn.onclick = function() {
     Bogdanovicmodal.style.display = "flex";
+    let results = document.getElementById("BogdanovicStats").innerHTML;
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/202711", {
         "method": "GET",
         "headers": {
@@ -54,22 +64,51 @@ Bogdanovicbtn.onclick = function() {
         return response.json();
     }).then(function(json) {
         console.log(json);
-        let results = document.getElementById("BogdanovicStats").innerHTML;
-        results += "<div> <h4> Season Statistics </h4>";
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
         results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
         results += "<br> Rebounds Per Game: " + json.reb_per_game;
         results += "<br> Assists Per Game: " + json.ast_per_game;
         results += "<br> Steals Per Game: " + json.stl_per_game;
         results += "<br> Blocks Per Game:" + json.blk_per_game;
         results += "<br> Field Goal Percentage: " + (json.fg_pct*100).toFixed(2) + "%";
-        results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "% </div>";
-        document.getElementById("BogdanovicStats").innerHTML = results;
+        results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
+        //document.getElementById("BogdanovicStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/202711", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/202711", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
+            document.getElementById("BogdanovicStats").innerHTML = results;
+        })
     });
 }
 
 // Jarrell Brantley
 Brantleybtn.onclick = function() {
     Brantleymodal.style.display = "flex";
+    let results = document.getElementById("BrantleyStats").innerHTML;
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/1629714", {
         "method": "GET",
         "headers": {
@@ -81,8 +120,7 @@ Brantleybtn.onclick = function() {
         return response.json();
     }).then(function(json) {
         console.log(json);
-        let results = document.getElementById("BrantleyStats").innerHTML;
-        results += "<div> <h4> Season Statistics </h4>";
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
         results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
         results += "<br> Rebounds Per Game: " + json.reb_per_game;
         results += "<br> Assists Per Game: " + json.ast_per_game;
@@ -90,13 +128,43 @@ Brantleybtn.onclick = function() {
         results += "<br> Blocks Per Game:" + json.blk_per_game;
         results += "<br> Field Goal Percentage: " + (json.fg_pct*100).toFixed(2) + "%";
         results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
-        document.getElementById("BrantleyStats").innerHTML = results;
+        //document.getElementById("BrantleyStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/1629714", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/1629714", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
+            document.getElementById("BrantleyStats").innerHTML = results;
+        })
     });
 }
 
 // Jordan Clarkson
 Clarksonbtn.onclick = function() {
     Clarksonmodal.style.display = "flex";
+    let results = document.getElementById("ClarksonStats").innerHTML;
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/203903", {
         "method": "GET",
         "headers": {
@@ -108,8 +176,7 @@ Clarksonbtn.onclick = function() {
         return response.json();
     }).then(function(json) {
         console.log(json);
-        let results = document.getElementById("ClarksonStats").innerHTML;
-        results += "<div> <h4> Season Statistics </h4>";
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
         results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
         results += "<br> Rebounds Per Game: " + json.reb_per_game;
         results += "<br> Assists Per Game: " + json.ast_per_game;
@@ -117,7 +184,36 @@ Clarksonbtn.onclick = function() {
         results += "<br> Blocks Per Game:" + json.blk_per_game;
         results += "<br> Field Goal Percentage: " + (json.fg_pct*100).toFixed(2) + "%";
         results += "<br> Free Throw Percentage: " + (json.ft_pct*100).toFixed(2) + "%";
-        document.getElementById("ClarksonStats").innerHTML = results;
+        //document.getElementById("ClarksonStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/203903", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/203903", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
+            document.getElementById("ClarksonStats").innerHTML = results;
+        })
     });
 }
 
@@ -125,6 +221,7 @@ Clarksonbtn.onclick = function() {
 
 Conleybtn.onclick = function() {
     Conleymodal.style.display = "flex";
+    let results = document.getElementById("ConleyStats").innerHTML;
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/201144", {
         "method": "GET",
         "headers": {
@@ -136,8 +233,7 @@ Conleybtn.onclick = function() {
         return response.json();
     }).then(function(json) {
         console.log(json);
-        let results = document.getElementById("ConleyStats").innerHTML;
-        results += "<div> <h4> Season Statistics </h4>";
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
         results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
         results += "<br> Rebounds Per Game: " + json.reb_per_game;
         results += "<br> Assists Per Game: " + json.ast_per_game;
@@ -145,13 +241,43 @@ Conleybtn.onclick = function() {
         results += "<br> Blocks Per Game:" + json.blk_per_game;
         results += "<br> Field Goal Percentage: " + (json.fg_pct*100).toFixed(2) + "%";
         results += "<br> Free Throw Percentage: " + (json.ft_pct*100).toFixed(2) + "%";
-        document.getElementById("ConleyStats").innerHTML = results;
+        //document.getElementById("ConleyStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/201144", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/201144", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
+            document.getElementById("ConleyStats").innerHTML = results;
+        })
     });
 }
 
 // Derrick Favors
 
 Favorsbtn.onclick = function() {
+    let results;
     Favorsmodal.style.display = "flex";
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/202324", {
         "method": "GET",
@@ -164,8 +290,8 @@ Favorsbtn.onclick = function() {
         return response.json();
     }).then(function(json) {
         console.log(json);
-        let results = document.getElementById("FavorsStats").innerHTML;
-        results += "<div> <h4> Season Statistics </h4>";
+        results = document.getElementById("FavorsStats").innerHTML;
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
         results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
         results += "<br> Rebounds Per Game: " + json.reb_per_game;
         results += "<br> Assists Per Game: " + json.ast_per_game;
@@ -173,7 +299,35 @@ Favorsbtn.onclick = function() {
         results += "<br> Blocks Per Game:" + json.blk_per_game;
         results += "<br> Field Goal Percentage: " + (json.fg_pct*100).toFixed(2) + "%";
         results += "<br> Free Throw Percentage: " + (json.ft_pct*100).toFixed(2) + "%";
-        document.getElementById("FavorsStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/202324", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/202324", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
+            document.getElementById("FavorsStats").innerHTML = results;
+        })
     });
 }
 
@@ -181,6 +335,7 @@ Favorsbtn.onclick = function() {
 // Rudy Gobert
 Gobertbtn.onclick = function() {
     Gobertmodal.style.display = "flex";
+    let results = document.getElementById("GobertStats").innerHTML;
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/1628378", {
         "method": "GET",
         "headers": {
@@ -192,8 +347,7 @@ Gobertbtn.onclick = function() {
         return response.json();
     }).then(function(json) {
         console.log(json);
-        let results = document.getElementById("GobertStats").innerHTML;
-        results += "<div> <h4> Season Statistics </h4>";
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
         results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
         results += "<br> Rebounds Per Game: " + json.reb_per_game;
         results += "<br> Assists Per Game: " + json.ast_per_game;
@@ -201,7 +355,36 @@ Gobertbtn.onclick = function() {
         results += "<br> Blocks Per Game:" + json.blk_per_game;
         results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
         results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
-        document.getElementById("GobertStats").innerHTML = results;
+        //document.getElementById("GobertStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/1628378", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/1628378", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
+            document.getElementById("GobertStats").innerHTML = results;
+        })
     });
 }
 
@@ -259,6 +442,7 @@ window.onclick = function(event) {
 // Joe Ingles
 Inglesbtn.onclick = function() {
     Inglesmodal.style.display = "flex";
+    let results = document.getElementById("InglesStats").innerHTML;
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/204060", {
         "method": "GET",
         "headers": {
@@ -268,24 +452,53 @@ Inglesbtn.onclick = function() {
     })
     .then(function(response) {
         return response.json();
+    }).then(function(json) {
+        console.log(json);
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
+        results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
+        results += "<br> Rebounds Per Game: " + json.reb_per_game;
+        results += "<br> Assists Per Game: " + json.ast_per_game;
+        results += "<br> Steals Per Game: " + json.stl_per_game;
+        results += "<br> Blocks Per Game:" + json.blk_per_game;
+        results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
+        results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
+        //document.getElementById("InglesStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/204060", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
         }).then(function(json) {
             console.log(json);
-            let results = document.getElementById("InglesStats").innerHTML;
-            results += "<div> <h4> Season Statistics </h4>";
-            results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
-            results += "<br> Rebounds Per Game: " + json.reb_per_game;
-            results += "<br> Assists Per Game: " + json.ast_per_game;
-            results += "<br> Steals Per Game: " + json.stl_per_game;
-            results += "<br> Blocks Per Game:" + json.blk_per_game;
-            results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
-            results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/204060", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
             document.getElementById("InglesStats").innerHTML = results;
-        });
+        })
+    });
 }
 
 //Donovan Mitchell
 Mitchellbtn.onclick = function() {
     Mitchellmodal.style.display = "flex";
+    let results = document.getElementById("MitchellStats").innerHTML;
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/1628378", {
         "method": "GET",
         "headers": {
@@ -295,25 +508,54 @@ Mitchellbtn.onclick = function() {
     })
     .then(function(response) {
         return response.json();
+    }).then(function(json) {
+        console.log(json);
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
+        results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
+        results += "<br> Rebounds Per Game: " + json.reb_per_game;
+        results += "<br> Assists Per Game: " + json.ast_per_game;
+        results += "<br> Steals Per Game: " + json.stl_per_game;
+        results += "<br> Blocks Per Game:" + json.blk_per_game;
+        results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
+        results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
+        //document.getElementById("MitchellStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/1628378", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
         }).then(function(json) {
             console.log(json);
-            let results = document.getElementById("MitchellStats").innerHTML;
-            results += "<div> <h4> Season Statistics </h4>";
-            results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
-            results += "<br> Rebounds Per Game: " + json.reb_per_game;
-            results += "<br> Assists Per Game: " + json.ast_per_game;
-            results += "<br> Steals Per Game: " + json.stl_per_game;
-            results += "<br> Blocks Per Game:" + json.blk_per_game;
-            results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
-            results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/1628378", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
             document.getElementById("MitchellStats").innerHTML = results;
-        });
+        })
+    });
 }
 
 // Georges Niang
 
 Niangbtn.onclick = function() {
     Niangmodal.style.display = "flex";
+    let results = document.getElementById("NiangStats").innerHTML;
     fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/1627777", {
         "method": "GET",
         "headers": {
@@ -323,26 +565,55 @@ Niangbtn.onclick = function() {
     })
     .then(function(response) {
         return response.json();
+    }).then(function(json) {
+        console.log(json);
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
+        results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
+        results += "<br> Rebounds Per Game: " + json.reb_per_game;
+        results += "<br> Assists Per Game: " + json.ast_per_game;
+        results += "<br> Steals Per Game: " + json.stl_per_game;
+        results += "<br> Blocks Per Game:" + json.blk_per_game;
+        results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
+        results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
+        //document.getElementById("NiangStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/1627777", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
         }).then(function(json) {
             console.log(json);
-            let results = document.getElementById("NiangStats").innerHTML;
-            results += "<div> <h4> Season Statistics </h4>";
-            results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
-            results += "<br> Rebounds Per Game: " + json.reb_per_game;
-            results += "<br> Assists Per Game: " + json.ast_per_game;
-            results += "<br> Steals Per Game: " + json.stl_per_game;
-            results += "<br> Blocks Per Game:" + json.blk_per_game;
-            results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
-            results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/1627777", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
             document.getElementById("NiangStats").innerHTML = results;
-        });
+        })
+    });
 }
 
 // Royce O'Neale
 
 Roycebtn.onclick = function() {
+    let results = document.getElementById("RoyceStats").innerHTML;
     Roycemodal.style.display = "flex";
-    fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/1627777", {
+    fetch("https://nba-stats4.p.rapidapi.com/per_game_regular_season/1626220", {
         "method": "GET",
         "headers": {
             "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
@@ -351,19 +622,47 @@ Roycebtn.onclick = function() {
     })
     .then(function(response) {
         return response.json();
+    }).then(function(json) {
+        console.log(json);
+        results += "<div style=\"padding-left: 10px;\"> <h4> Season Statistics </h4>";
+        results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
+        results += "<br> Rebounds Per Game: " + json.reb_per_game;
+        results += "<br> Assists Per Game: " + json.ast_per_game;
+        results += "<br> Steals Per Game: " + json.stl_per_game;
+        results += "<br> Blocks Per Game:" + json.blk_per_game;
+        results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
+        results += "<br> Free Throw Percentage: " + (json.ft_pct*100).toFixed(2) + "%";
+        //document.getElementById("RoyceStats").innerHTML = results;
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/rankings_regular_season/1626220", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
         }).then(function(json) {
             console.log(json);
-            let results = document.getElementById("RoyceStats").innerHTML;
-            results += "<div> <h4> Season Statistics </h4>";
-            results += "<br class=\"break\">Points Per Game: " + json.pts_per_game;
-            results += "<br> Rebounds Per Game: " + json.reb_per_game;
-            results += "<br> Assists Per Game: " + json.ast_per_game;
-            results += "<br> Steals Per Game: " + json.stl_per_game;
-            results += "<br> Blocks Per Game:" + json.blk_per_game;
-            results += "<br> Field Goal Percentage: " + json.fg_pct*100 + "%";
-            results += "<br> Free Throw Percentage: " + json.ft_pct*100 + "%";
+            results += "<br> Efficiency Rating: " + json.rank_eff;
+        })
+        sleep(1000);
+        fetch("https://nba-stats4.p.rapidapi.com/career_totals_regular_season/1626220", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "288df9b9efmshaf7a0c981bc4cd0p19e367jsn06dae213fba0",
+                "x-rapidapi-host": "nba-stats4.p.rapidapi.com"
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            console.log(json);
+            results += "<br> Career Total Points: " + json.pts;
             document.getElementById("RoyceStats").innerHTML = results;
-        });
+        })
+    });
 }
 
 Azubuikebtn.onclick = function() {
